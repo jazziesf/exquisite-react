@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './PlayerSubmissionForm.css';
 
 class PlayerSubmissionForm extends Component {
@@ -12,6 +13,7 @@ class PlayerSubmissionForm extends Component {
       noun1: "",
       noun2: "",
       verb: "",
+      count: 1,
       }
     }
 
@@ -26,13 +28,28 @@ class PlayerSubmissionForm extends Component {
     this.setState(updateState);
   }
 
+  onSubmitHandler = (event) => {
+      event.preventDefault();
+      let count = this.state.count
+      this.props.addLineSubmissionCallback(this.state)
+      this.setState({
+        adj1: "",
+        adj2: "",
+        adv: "" ,
+        noun1: "",
+        noun2: "",
+        verb: "",
+        count: count += 1,
+      });
+    };
+
   render() {
 
     return (
       <div className="PlayerSubmissionForm__form">
-        <h3>Player Submission Form for Player #{  }</h3>
+        <h3>Player Submission Form for Player #{this.state.count}</h3>
 
-        <form className="PlayerSubmissionForm__form" >
+        <form className="PlayerSubmissionForm__form" onSubmit={this.onSubmitHandler} >
 
           <div className="PlayerSubmissionForm__poem-inputs">
             <p>The</p>
@@ -94,7 +111,11 @@ class PlayerSubmissionForm extends Component {
           </div>
 
           <div className="PlayerSubmissionForm__submit">
-            <input type="submit" value="Submit Line" className="PlayerSubmissionForm__submit-btn" />
+            <input
+              type="submit"
+              value="Submit Line"
+              className="PlayerSubmissionForm__submit-btn"
+            />
           </div>
         </form>
       </div>
@@ -102,9 +123,9 @@ class PlayerSubmissionForm extends Component {
   }
 }
 
-// PlayerSubmissionForm.propTypes = {
-//   addLineSubmission: PropTypes.func.isRequired
-// }
+PlayerSubmissionForm.propTypes = {
+  addLineSubmissionCallback: PropTypes.func.isRequired
+}
 
 
 export default PlayerSubmissionForm;
