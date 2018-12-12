@@ -4,21 +4,9 @@ import './FinalPoem.css';
 
 const FinalPoem = (props) => {
 
-  const poems = props.poem.map((line, i) => {
-    return (
-      <p key={i}>
-        {
-          props.fields.map((field) => {
-            if (field.key) {
-              return line[field.key] + " ";
-            } else {
-              return field;
-            }
-          })
-        }
-      </p>
-    )
-  });
+  const poem = props.poem.map((line) => {
+    return <p>{line}</p>
+  })
 
   return (
     <div className="FinalPoem">
@@ -26,13 +14,14 @@ const FinalPoem = (props) => {
       <section className="FinalPoem__poem">
         <h3>Final Poem</h3>
           <section>
-            {poems}
+            {poem}
           </section>
       </section> }
 
+      {!props.isRevealed &&
       <div className="FinalPoem__reveal-btn-container" >
         <input type="button" value="We are finished: Reveal the Poem" className="FinalPoem__reveal-btn" onClick={props.viewFinalPoemCallback} />
-      </div>
+      </div> }
     </div>
   );
 }
@@ -40,7 +29,7 @@ const FinalPoem = (props) => {
 FinalPoem.propTypes = {
   viewFinalPoemCallback: PropTypes.func.isRequired,
   poem: PropTypes.array,
-  isRevealed: PropTypes.bool
+  isRevealed: PropTypes.bool,
 }
 
 export default FinalPoem;

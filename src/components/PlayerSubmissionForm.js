@@ -17,6 +17,7 @@ class PlayerSubmissionForm extends Component {
       }
     }
 
+
   onFiledChangeHandler = (event, fieldToGetValueFrom = "value") => {
     const updateState = {};
 
@@ -28,10 +29,15 @@ class PlayerSubmissionForm extends Component {
     this.setState(updateState);
   }
 
+
   onSubmitHandler = (event) => {
       event.preventDefault();
+      const {adj1, adj2, noun1, noun2, adv, verb} = this.state;
+      let newLine = `The ${adj1} ${noun1} ${adv} the ${verb} ${adj2} ${noun2}.`
+
       let count = this.state.count
-      this.props.addLineSubmissionCallback(this.state)
+      this.props.addLineSubmissionCallback(newLine)
+
       this.setState({
         adj1: "",
         adj2: "",
@@ -107,7 +113,7 @@ class PlayerSubmissionForm extends Component {
               value={this.state.noun2}
               onChange={this.onFiledChangeHandler}
               />
-
+              <p>.</p>
           </div>
 
           <div className="PlayerSubmissionForm__submit">
@@ -116,8 +122,11 @@ class PlayerSubmissionForm extends Component {
               value="Submit Line"
               className="PlayerSubmissionForm__submit-btn"
             />
+
           </div>
+
         </form>
+
       </div>
     );
   }

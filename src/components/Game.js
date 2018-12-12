@@ -16,7 +16,8 @@ class Game extends Component {
 
   onAddLineToPoem = (newLine) => {
     const { poem } = this.state;
-    poem.push(newLine.to_s);
+
+    poem.push(newLine);
     this.setState({
       poem,
     })
@@ -50,16 +51,19 @@ class Game extends Component {
           { exampleFormat }
         </p>
 
-        <RecentSubmission />
+        {!this.state.isRevealed && <RecentSubmission
+          isRevealed={this.state.isRevealed}
+          poem={this.state.poem} /> }
 
-        <PlayerSubmissionForm addLineSubmissionCallback={this.onAddLineToPoem} />
+        {!this.state.isRevealed && <PlayerSubmissionForm
+          addLineSubmissionCallback={this.onAddLineToPoem}
+        /> }
 
         <FinalPoem
           viewFinalPoemCallback={this.onFinalPoem}
           isRevealed={this.state.isRevealed}
           poem={this.state.poem}
-          fields={FIELDS}
-          />
+        />
 
       </div>
     );
