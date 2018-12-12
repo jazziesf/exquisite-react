@@ -9,17 +9,24 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      poem: []
+      poem: [],
+      isRevealed: false,
     }
   }
 
   onAddLineToPoem = (newLine) => {
     const { poem } = this.state;
-    poem.push(newLine);
+    poem.push(newLine.to_s);
     this.setState({
       poem,
     })
    }
+
+   onFinalPoem = () => {
+     this.setState({
+       isRevealed: true,
+     });
+    }
 
   render() {
 
@@ -47,7 +54,12 @@ class Game extends Component {
 
         <PlayerSubmissionForm addLineSubmissionCallback={this.onAddLineToPoem} />
 
-        <FinalPoem />
+        <FinalPoem
+          viewFinalPoemCallback={this.onFinalPoem}
+          isRevealed={this.state.isRevealed}
+          poem={this.state.poem}
+          fields={FIELDS}
+          />
 
       </div>
     );
